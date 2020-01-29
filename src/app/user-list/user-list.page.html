@@ -1,0 +1,51 @@
+<ion-content class="ion-padding">
+  <ng-container *ngIf="userInfo.length; else name">
+    <ion-grid fixed>
+      <ion-virtual-scroll [items]="userInfo" approxItemHeight="290px">
+        <ion-row
+          class="user-content ion-align-items-center ion-activatable"
+          *virtualItem="let item; let i = index"
+          (click)="goToUserDetail(item, i)"
+        >
+          <ion-col size="auto">
+            <ion-avatar class="user-content__avatar">
+              <ion-img [src]="item.picture.medium"></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-row>
+              <ion-col size="12">
+                <h3 class="user-content__first-name">
+                  {{item.name.first}} {{item.name.last}}
+                </h3>
+              </ion-col>
+              <ion-col size="12">
+                <h4 class="user-content__last-name">
+                  {{item.location.country}}
+                </h4>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-row>
+      </ion-virtual-scroll>
+    </ion-grid>
+
+    <ion-infinite-scroll
+      threshold="100px"
+      (ionInfinite)="loadMoreUsersByScroll($event)"
+    >
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data..."
+      >
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+
+  <ng-template #name>
+    <ion-row class="spinner-container" align-items-center justify-content-center>
+      <ion-spinner></ion-spinner>
+    </ion-row>
+  </ng-template>
+</ion-content>

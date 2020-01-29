@@ -1,0 +1,30 @@
+<ion-content *ngIf="(userDetail$ | async) as userDetails" class="ion-padding">
+  <ion-list>
+    <img [src]="pictureTaken || userDetails.picture.large" />
+    <ion-item>
+      First Name: {{userDetails.name.first}}
+    </ion-item>
+    <ion-item>
+      Last name: {{userDetails.name.last}}
+    </ion-item>
+    <ion-item>
+      Email: {{userDetails.email}}
+    </ion-item>
+    <ion-item>
+      phone: {{userDetails.phone}}
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-button expand="full" (click)="goBackToList()">
+        Go back
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button expand="full" (click)="takePicture(userDetails)">
+        take picture
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
